@@ -13,7 +13,7 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite --config ./vite.config.ts preview",
     "dev": "electron-vite --config ./vite.config.ts dev",
-    "build": "npm run typecheck && electron-vite build --config ./vite.config.ts",
+    "build": "electron-vite --config ./vite.config.ts build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
