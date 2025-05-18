@@ -9,6 +9,7 @@ import LoginPanel from "@/components/LoginPanel/index.vue";
 import { Avatar } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { useColorMode } from "@vueuse/core";
+import { useUserInfo } from "@/store";
 
 const router = useRouter();
 
@@ -58,9 +59,10 @@ const handleBlur = (): void => {
 };
 
 const showLoginPanel = ref(false);
+const userInfo = useUserInfo();
 
 const openLoginPanel = () => {
-  showLoginPanel.value = true;
+  showLoginPanel.value = !userInfo;
 };
 </script>
 
@@ -82,7 +84,22 @@ const openLoginPanel = () => {
       />
     </div>
     <div class="flex items-center justify-center space-x-5">
-      <div @click="openLoginPanel"><Avatar>未登录</Avatar></div>
+      <div
+        class="flex cursor-pointer items-center space-x-1"
+        @click="openLoginPanel"
+      >
+        <Avatar>
+          <AvatarImage
+            :src="
+              userInfo.accountInfo?.profile.avatarUrl ??
+              'https://github.com/unovue.png'
+            "
+            alt="@unovue"
+          />
+        </Avatar>
+
+        <div>{{ userInfo.accountInfo?.profile.nickname ?? "未登录" }}</div>
+      </div>
       <Switch :model-value="isDark" @update:model-value="toggleTheme" />
     </div>
   </div>

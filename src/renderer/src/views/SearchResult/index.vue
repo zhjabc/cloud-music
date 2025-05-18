@@ -62,7 +62,7 @@ const handleDbClick = (item: Song) => {
     </div>
     <div
       ref="scrollRef"
-      class="hover:scrollbar-thumb-background-scrollbar-hover ml-[30px] min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-background-scrollbar"
+      class="ml-[30px] min-h-0 flex-1 overflow-y-auto scrollbar"
     >
       <div
         class="text- flex items-center justify-between rounded-[5px] px-[20px] font-semibold text-foreground-secondary"

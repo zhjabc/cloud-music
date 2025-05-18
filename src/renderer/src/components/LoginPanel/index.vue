@@ -3,6 +3,9 @@ import { checkQrCode, createQrCode, getQrKey } from "@/api/public";
 import { QrCode, QrKey } from "@/types";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useUserInfo } from "@/store";
+import { Input } from "@/components/ui/input";
+import { Select, SelectItem } from "@/components/ui/select";
+import Zhj_phone_input from "@/components/zhj_ui/zhj_phone_input.vue";
 
 const emits = defineEmits(["close"]);
 
@@ -14,7 +17,7 @@ let key = "";
 const qrInfo = ref<QrCode>();
 
 const getQrCodeFn = async () => {
-  if (qrCheckTimer) clearTimeout(qrCheckTimer);
+  qrCheckTimer && clearTimeout(qrCheckTimer);
   const {
     data: { unikey },
   } = await getQrKey<QrKey>();
@@ -33,6 +36,8 @@ const userInfo = useUserInfo();
 
 const checkQrCodeFn = async () => {
   try {
+    qrCheckTimer && clearTimeout(qrCheckTimer);
+
     const res = await checkQrCode({ key, timestamp: Date.now() });
 
     // 根据返回码处理不同情况
@@ -56,12 +61,23 @@ const checkQrCodeFn = async () => {
 
 // 组件卸载或登录面板关闭时清除定时器
 onUnmounted(() => {
-  if (qrCheckTimer) clearTimeout(qrCheckTimer);
+  qrCheckTimer && clearTimeout(qrCheckTimer);
 });
 
 const closeLoginPanel = () => {
   emits("close");
-  if (qrCheckTimer) clearTimeout(qrCheckTimer);
+  qrCheckTimer && clearTimeout(qrCheckTimer);
+};
+
+const mode = ref("qr");
+const toggleLoginMode = (value: string) => {
+  mode.value = value;
+};
+
+const ctCode = ref("86");
+const handleChang = (value: string) => {
+  ctCode.value = value;
+  console.log("=>(index.vue:76) value", value);
 };
 </script>
 
@@ -75,58 +91,83 @@ const closeLoginPanel = () => {
 
     <!-- 登录框 - 添加立体效果 -->
     <div
-      class="relative z-10 flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border border-[#2d2d35] bg-[#1b1b24] shadow-2xl transition-all duration-300 ease-out"
+      class="relative flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border border-[#2d2d35] bg-[#1b1b24] shadow-2xl transition-all duration-300 ease-out"
     >
-      <!-- 拖动区域 - 顶部栏 -->
-      <div
-        class="drag-region flex h-[45px] items-center justify-between border-b border-[#232327] bg-[#181820] px-5"
-      >
-        <div class="font-medium text-[#e0e0e2]">扫码登录</div>
+      <div>
+        <!-- 拖动区域 - 顶部栏 -->
         <div
-          class="no-drag cursor-pointer text-gray-500 hover:text-gray-300"
-          @click="closeLoginPanel"
+          class="drag-region flex h-[45px] items-center justify-between border-b border-[#232327] bg-[#181820] px-5"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </div>
-      </div>
-
-      <!-- 内容区 -->
-      <div
-        class="flex flex-1 flex-col items-center justify-center space-y-6 p-8"
-      >
-        <!-- 二维码区域 -->
-        <div
-          class="flex h-[200px] w-[200px] items-center justify-center rounded-lg bg-white shadow-inner"
-          @dblclick="getQrCodeFn"
-        >
-          <img :src="qrInfo?.qrimg" class="pointer-events-none" />
-        </div>
-
-        <!-- 扫码提示 -->
-        <div class="text-center text-[#a0a0a5]">
-          使用<span class="px-[5px] text-[#e0e0e2]">网易云APP扫码</span>登录
-        </div>
-
-        <!-- 其他登录选项 -->
-        <div class="w-full pt-4 text-center">
           <div
-            class="cursor-pointer text-sm text-[#5e7cbd] hover:text-[#6e8bd0]"
+            v-if="mode === 'phone'"
+            class="cursor-pointer font-medium text-[#e0e0e2]"
+            @click="toggleLoginMode('qr')"
           >
-            选择其他登录模式
+            扫码登录
           </div>
+          <div v-else></div>
+          <div
+            class="no-drag cursor-pointer text-gray-500 hover:text-gray-300"
+            @click="closeLoginPanel"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 内容区 -->
+        <div
+          v-show="mode === 'qr'"
+          class="flex flex-1 flex-col items-center justify-center space-y-6 p-8"
+        >
+          <!-- 二维码区域 -->
+          <div
+            class="flex h-[200px] w-[200px] items-center justify-center rounded-lg bg-white shadow-inner"
+            @dblclick="getQrCodeFn"
+          >
+            <img :src="qrInfo?.qrimg" class="pointer-events-none" />
+          </div>
+
+          <!-- 扫码提示 -->
+          <div class="text-center text-[#a0a0a5]">
+            使用<span class="px-[5px] text-[#e0e0e2]">网易云APP扫码</span>登录
+          </div>
+
+          <!-- 其他登录选项 -->
+          <div class="w-full pt-4 text-center">
+            <div
+              class="cursor-pointer text-sm text-[#5e7cbd] hover:text-[#6e8bd0]"
+              @click="toggleLoginMode('phone')"
+            >
+              选择其他登录模式
+            </div>
+          </div>
+        </div>
+        <div
+          v-show="mode === 'phone'"
+          class="flex flex-1 flex-col items-center justify-center p-8"
+        >
+          <div
+            class="flex w-full items-center justify-center space-x-[6px] pb-[25px]"
+          >
+            <span
+              class="iconfont icon-wangyiyun text-[38px] text-[#fc3c5a]"
+            ></span>
+            <span class="text-[25px]">网易云音乐</span>
+          </div>
+          <zhj_phone_input @change="handleChang" />
         </div>
       </div>
     </div>

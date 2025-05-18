@@ -79,6 +79,20 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  input:focus-visible {
+    @apply outline-none ring-0;
+  }
+}
+
+
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -93,19 +107,9 @@
   .no-drag {
     -webkit-app-region: no-drag;
   }
-}
-
-/*---break---*/
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  input:focus-visible {
-    @apply outline-none ring-0;
+  .scrollbar {
+    @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-background-scrollbar
   }
 }
+
 
