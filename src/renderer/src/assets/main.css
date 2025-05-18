@@ -1,0 +1,12 @@
+@import './base.css';
+@import './fonts/iconfont.css';
+
+body {
+  user-select: none;
+}
+
+#app{
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}

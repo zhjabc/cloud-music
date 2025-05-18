@@ -1,0 +1,37 @@
+{
+  "id": "4923827",
+  "name": "网易云音乐",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "41211349",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "17868595",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "36420999",
+      "name": "wangyiyun-copy",
+      "font_class": "wangyiyun",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "37870312",
+      "name": "网易云音乐",
+      "font_class": "wangyiyunyinle",
+      "unicode": "eb7d",
+      "unicode_decimal": 60285
+    }
+  ]
+}
