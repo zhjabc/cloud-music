@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import zhj_input from "@/components/zhj_ui/zhj_input.vue";
-import { ComponentPublicInstance, ref } from "vue";
+import { ComponentPublicInstance, computed, ref } from "vue";
 import { getHotSearch } from "@/api/public";
 import SearchRecord from "@/components/SearchRecord/index.vue";
 import { HotSearch } from "@/types";
@@ -17,10 +17,8 @@ const searchValue = ref("海阔天空");
 const searchRecordRef = ref<ComponentPublicInstance | null>(null);
 
 // 主题切换
-const isDark = ref(false);
 const mode = useColorMode();
 const toggleTheme = (value: boolean) => {
-  isDark.value = value;
   mode.value = value ? "dark" : "light";
 };
 
@@ -100,7 +98,10 @@ const openLoginPanel = () => {
 
         <div>{{ userInfo.accountInfo?.profile.nickname ?? "未登录" }}</div>
       </div>
-      <Switch :model-value="isDark" @update:model-value="toggleTheme" />
+      <Switch
+        :model-value="mode === 'dark'"
+        @update:model-value="toggleTheme"
+      />
     </div>
   </div>
   <Teleport to="#app">
