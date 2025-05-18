@@ -63,7 +63,6 @@ const userInfo = useUserInfo();
 
 const openLoginPanel = () => {
   showLoginPanel.value = !userInfo;
-  console.log("=>(index.vue:66) userInfo", userInfo);
 };
 </script>
 
