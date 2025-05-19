@@ -18,9 +18,12 @@ module.exports = {
         background: "hsl(var(--background))",
         "background-secondary": "hsl(var(--background-secondary))",
         "background-sidebar": "hsl(var(--background-sidebar))",
+        "background-sidebar-hover": "hsl(var(--background-sidebar-hover))",
         "background-player": "hsl(var(--background-player))",
         "background-login": "hsl(var(--background-login))",
-        "background-sidebar-hover": "hsl(var(--background-sidebar-hover))",
+        "background-search-record": "hsl(var(--background-search-record))",
+        "background-search-record-hover":
+          "hsl(var(--background-search-record-hover))",
         "background-scrollbar": "hsl(var(--background-scrollbar))",
         foreground: "hsl(var(--foreground))",
         "foreground-secondary": "hsl(var(--foreground-secondary))",

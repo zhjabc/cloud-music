@@ -6,6 +6,7 @@ export interface Result<T> {
 export interface CommonResult<T> {
   code: number;
   data: T;
+  message?: string;
 }
 
 export interface QrKey {

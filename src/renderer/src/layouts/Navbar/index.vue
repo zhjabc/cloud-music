@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import zhj_input from "@/components/zhj_ui/zhj_input.vue";
-import { ComponentPublicInstance, computed, ref } from "vue";
+import { ComponentPublicInstance, ref } from "vue";
 import { getHotSearch } from "@/api/public";
 import SearchRecord from "@/components/SearchRecord/index.vue";
-import { HotSearch } from "@/types";
+import { HotDetail } from "@/types";
 import { useRouter } from "vue-router";
 import LoginPanel from "@/components/LoginPanel/index.vue";
 import { Avatar } from "@/components/ui/avatar";
@@ -36,13 +36,13 @@ const handleSearch = (value: string) => {
   });
 };
 const showSearchRecord = ref(false);
-const hots = ref<HotSearch["hots"]>([]);
+const hots = ref<HotDetail[]>([]);
 
 // 输入框聚焦
 const handleFocus = async () => {
   if (!searchValue.value) {
-    const res = await getHotSearch<HotSearch>();
-    hots.value = res.result.hots;
+    const res = await getHotSearch();
+    hots.value = res.data;
     showSearchRecord.value = true;
   }
 };
@@ -54,6 +54,13 @@ const handleBlur = (): void => {
       showSearchRecord.value = false;
     }
   }, 100);
+};
+
+// 搜索记录点击
+const handleRecordChange = (value: string) => {
+  searchValue.value = value;
+  showSearchRecord.value = false;
+  return handleSearch(value);
 };
 
 const showLoginPanel = ref(false);
@@ -75,10 +82,11 @@ const openLoginPanel = () => {
         @blur="handleBlur"
       />
       <SearchRecord
-        v-show="showSearchRecord"
+        v-if="showSearchRecord"
         ref="searchRecordRef"
         class="absolute top-[50px] w-full"
         :hots="hots"
+        @change="handleRecordChange"
       />
     </div>
     <div class="flex flex-nowrap items-center justify-center space-x-5">

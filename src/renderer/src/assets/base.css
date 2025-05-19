@@ -37,6 +37,8 @@
     --background-sidebar-hover: 210 17% 91%;
     --background-player: 222 22% 26%;
     --background-login: var(--background-secondary);
+    --background-search-record: var(--background-secondary);
+    --background-search-record-hover: 210 8% 95%;
     --background-scrollbar: 210 15% 90%;
     --background-scrollbar-hover: 222 12% 79%;
   }
@@ -76,6 +78,8 @@
     --background-sidebar-hover: 240 7% 17%;
     --background-player: 240 11% 20%;
     --background-login: 240 14% 12%;
+    --background-search-record: var(--background-player);
+    --background-search-record-hover: 240 9% 25;
     --background-scrollbar: 240 7% 18%;
     --background-scrollbar-hover: 240 3% 32%;
   }

@@ -2,7 +2,7 @@
 import { useRoute } from "vue-router";
 import { msToTime } from "@/utils";
 import { ref, watch } from "vue";
-import { checkMusic, getSearchSong, getSongUrl } from "@/api/public";
+import { checkMusic, getSearchSong } from "@/api/public";
 import { SearchSong, Song } from "@/types";
 import { debounce } from "lodash";
 import { useScroll } from "@/hooks/useScroll";
@@ -27,6 +27,13 @@ const getSongList = async (keywords: string) => {
   }
 };
 const debouncedSearch = debounce(getSongList, 300);
+const saveSearchRecords = (value: string) => {
+  const records: string[] = JSON.parse(
+    localStorage.getItem("searchRecords") ?? "[]",
+  );
+  const newRecords: string[] = Array.from(new Set([value, ...records]));
+  localStorage.setItem("searchRecords", JSON.stringify(newRecords));
+};
 
 watch(
   () => [route.query.keywords, route.query._t],
@@ -34,6 +41,7 @@ watch(
     offset = 0;
     songsList.value = [];
     debouncedSearch(newKeywords as string);
+    saveSearchRecords(newKeywords as string);
   },
   { immediate: true },
 );
@@ -101,7 +109,7 @@ const handleDbClick = (item: Song) => {
             class="mr-[8px] h-[50px] w-[50px] rounded-lg"
             :src="item.al.picUrl"
           />
-          <div class="text-[#5e7cbd]">{{ item.name }}</div>
+          <div class="line-clamp-1 text-[#5e7cbd]">{{ item.name }}</div>
         </div>
         <div
           class="line-clamp-1 flex-[2] p-[3px_8px] text-[14px] text-foreground-secondary"

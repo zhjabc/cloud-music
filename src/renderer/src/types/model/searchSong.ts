@@ -1,4 +1,4 @@
-export interface searchSong {
+export interface SearchSong {
   searchQcReminder: any;
   songs: Song[];
   songCount: number;

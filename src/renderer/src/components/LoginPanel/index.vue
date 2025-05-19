@@ -25,7 +25,6 @@ const getQrCodeFn = async () => {
   const { data } = await createQrCode<QrCode>({
     key,
     qrimg: true,
-    timestamp: Date.now(),
   });
   qrInfo.value = data;
   checkQrCodeFn();
@@ -38,7 +37,7 @@ const checkQrCodeFn = async () => {
   try {
     qrCheckTimer && clearTimeout(qrCheckTimer);
 
-    const res = await checkQrCode({ key, timestamp: Date.now() });
+    const res = await checkQrCode({ key });
 
     // 根据返回码处理不同情况
     if (res.code === 800) {
@@ -91,7 +90,7 @@ const handleChang = (value: string) => {
 
     <!-- 登录框 - 添加立体效果 -->
     <div
-      class="bg-background-login relative flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border shadow-2xl transition-all duration-300 ease-out"
+      class="relative flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border bg-background-login shadow-2xl transition-all duration-300 ease-out"
     >
       <div>
         <!-- 拖动区域 - 顶部栏 -->

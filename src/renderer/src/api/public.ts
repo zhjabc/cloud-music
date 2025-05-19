@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { CommonResult, QrCheck, Result, SongLevel } from "@/types";
+import { CommonResult, HotDetail, QrCheck, Result, SongLevel } from "@/types";
 // 搜索歌曲
 export const getSearchSong = <T>(params: {
   keywords: string;
@@ -14,12 +14,11 @@ export const getSearchSong = <T>(params: {
   });
 };
 
-// 热搜列表(简略)
-export const getHotSearch = <T>(params = {}): Promise<Result<T>> => {
+// 热搜列表(详细)
+export const getHotSearch = (): Promise<CommonResult<HotDetail[]>> => {
   return request({
-    url: "/search/hot",
+    url: "/search/hot/detail",
     method: "get",
-    params,
   });
 };
 
@@ -65,22 +64,20 @@ export const getQrKey = <T>(): Promise<CommonResult<T>> => {
 export const createQrCode = <T>(params: {
   key: string;
   qrimg?: boolean;
-  timestamp: number;
 }): Promise<CommonResult<T>> => {
   return request({
     url: "/login/qr/create",
     method: "get",
-    params,
+    params: { ...params, timestamp: Date.now() },
   });
 };
 export const checkQrCode = (params: {
   key: string;
   noCookie?: boolean;
-  timestamp: number;
 }): Promise<QrCheck> => {
   return request({
     url: "/login/qr/check",
     method: "get",
-    params,
+    params: { ...params, timestamp: Date.now() },
   });
 };
