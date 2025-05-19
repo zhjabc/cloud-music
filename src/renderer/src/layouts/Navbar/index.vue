@@ -65,7 +65,7 @@ const openLoginPanel = () => {
 </script>
 
 <template>
-  <div class="flex justify-between p-[28px_30px_10px]">
+  <div class="flex flex-nowrap justify-between p-[28px_30px_10px]">
     <div class="relative">
       <zhj_input
         v-model="searchValue"
@@ -81,9 +81,9 @@ const openLoginPanel = () => {
         :hots="hots"
       />
     </div>
-    <div class="flex items-center justify-center space-x-5">
+    <div class="flex flex-nowrap items-center justify-center space-x-5">
       <div
-        class="flex cursor-pointer items-center space-x-1"
+        class="flex cursor-pointer flex-nowrap items-center space-x-1"
         @click="openLoginPanel"
       >
         <Avatar>
@@ -96,7 +96,9 @@ const openLoginPanel = () => {
           />
         </Avatar>
 
-        <div>{{ userInfo.accountInfo?.profile.nickname ?? "未登录" }}</div>
+        <div class="text-nowrap">
+          {{ userInfo.accountInfo?.profile.nickname ?? "未登录" }}
+        </div>
       </div>
       <Switch
         :model-value="mode === 'dark'"

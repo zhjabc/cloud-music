@@ -85,22 +85,22 @@ const handleChang = (value: string) => {
   <div class="fixed inset-0 z-50 flex items-center justify-center">
     <!-- 半透明背景遮罩，增加深度感 -->
     <div
-      class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm"
+      class="fixed inset-0 bg-opacity-60 backdrop-blur-sm"
       @click="closeLoginPanel"
     ></div>
 
     <!-- 登录框 - 添加立体效果 -->
     <div
-      class="relative flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border border-[#2d2d35] bg-[#1b1b24] shadow-2xl transition-all duration-300 ease-out"
+      class="bg-background-login relative flex h-[520px] w-[377px] scale-100 transform flex-col overflow-hidden rounded-lg border shadow-2xl transition-all duration-300 ease-out"
     >
       <div>
         <!-- 拖动区域 - 顶部栏 -->
         <div
-          class="drag-region flex h-[45px] items-center justify-between border-b border-[#232327] bg-[#181820] px-5"
+          class="drag-region flex h-[45px] items-center justify-between border-b px-5"
         >
           <div
             v-if="mode === 'phone'"
-            class="cursor-pointer font-medium text-[#e0e0e2]"
+            class="cursor-pointer font-medium"
             @click="toggleLoginMode('qr')"
           >
             扫码登录
@@ -134,21 +134,21 @@ const handleChang = (value: string) => {
         >
           <!-- 二维码区域 -->
           <div
-            class="flex h-[200px] w-[200px] items-center justify-center rounded-lg bg-white shadow-inner"
+            class="flex h-[200px] w-[200px] items-center justify-center rounded-lg shadow-inner"
             @dblclick="getQrCodeFn"
           >
             <img :src="qrInfo?.qrimg" class="pointer-events-none" />
           </div>
 
           <!-- 扫码提示 -->
-          <div class="text-center text-[#a0a0a5]">
-            使用<span class="px-[5px] text-[#e0e0e2]">网易云APP扫码</span>登录
+          <div class="text-center">
+            使用<span class="px-[5px] text-[#5a75b2]">网易云APP扫码</span>登录
           </div>
 
           <!-- 其他登录选项 -->
           <div class="w-full pt-4 text-center">
             <div
-              class="cursor-pointer text-sm text-[#5e7cbd] hover:text-[#6e8bd0]"
+              class="cursor-pointer text-sm text-[#5e7cbd]"
               @click="toggleLoginMode('phone')"
             >
               选择其他登录模式

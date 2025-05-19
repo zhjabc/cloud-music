@@ -25,7 +25,7 @@ const handleClick = (value: string) => {
 <template>
   <div class="relative">
     <div
-      class="flex items-center justify-center space-x-[18px] rounded-[50px] border-[1px] bg-[#22222b] p-[8px_20px] text-[14px]"
+      class="flex items-center justify-center space-x-[18px] rounded-[50px] border-[1px] p-[8px_20px] text-[14px]"
     >
       <div
         class="flex w-14 cursor-pointer justify-between"

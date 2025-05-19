@@ -19,6 +19,7 @@ module.exports = {
         "background-secondary": "hsl(var(--background-secondary))",
         "background-sidebar": "hsl(var(--background-sidebar))",
         "background-player": "hsl(var(--background-player))",
+        "background-login": "hsl(var(--background-login))",
         "background-sidebar-hover": "hsl(var(--background-sidebar-hover))",
         "background-scrollbar": "hsl(var(--background-scrollbar))",
         foreground: "hsl(var(--foreground))",

@@ -2,9 +2,7 @@
 import SidebarItem from "@/layouts/Sidebar/SidebarItem.vue";
 import { computed, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { useColorMode } from "@vueuse/core";
 const router = useRouter();
-const model = useColorMode();
 const sidebars = reactive([
   {
     id: "/recommend",
@@ -58,13 +56,13 @@ const handleClick = (id: string): void => {
 </script>
 
 <template>
-  <div class="flex h-full w-[200px] flex-col bg-background-secondary">
+  <div class="h-full w-[200px] bg-background-secondary">
     <div class="drag h-[30px] w-full"></div>
-    <div class="w-full flex-1 p-[0_15px_0_20px]">
-      <div class="flex w-full items-center space-x-[6px] pb-[20px]">
-        <span class="iconfont icon-wangyiyun text-[24px] text-[#fc3c5a]"></span>
-        <span class="text-[20px]">网易云音乐</span>
-      </div>
+    <div class="flex items-center justify-center space-x-[6px] pb-[20px]">
+      <span class="iconfont icon-wangyiyun text-[28px] text-[#fc3c5a]"></span>
+      <span class="text-2xl">网易云音乐</span>
+    </div>
+    <div class="h-full overflow-y-auto p-[0_15px_0_20px] scrollbar">
       <div class="mb-[20px] space-y-[5px]">
         <SidebarItem
           v-for="item in sidebars"

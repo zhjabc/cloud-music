@@ -36,6 +36,7 @@
     --background-sidebar: 216 22% 95%;
     --background-sidebar-hover: 210 17% 91%;
     --background-player: 222 22% 26%;
+    --background-login: var(--background-secondary);
     --background-scrollbar: 210 15% 90%;
     --background-scrollbar-hover: 222 12% 79%;
   }
@@ -74,6 +75,7 @@
     --background-sidebar: 220 14% 96%;
     --background-sidebar-hover: 240 7% 17%;
     --background-player: 240 11% 20%;
+    --background-login: 240 14% 12%;
     --background-scrollbar: 240 7% 18%;
     --background-scrollbar-hover: 240 3% 32%;
   }
