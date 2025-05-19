@@ -3,8 +3,6 @@ import { checkQrCode, createQrCode, getQrKey } from "@/api/public";
 import { QrCode, QrKey } from "@/types";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useUserInfo } from "@/store";
-import { Input } from "@/components/ui/input";
-import { Select, SelectItem } from "@/components/ui/select";
 import Zhj_phone_input from "@/components/zhj_ui/zhj_phone_input.vue";
 
 const emits = defineEmits(["close"]);
@@ -46,7 +44,7 @@ const checkQrCodeFn = async () => {
     } else if (res.code === 803) {
       // 登录成功
       localStorage.setItem("MUSIC_U", res.cookie);
-      await userInfo.setUserAccountInfo();
+      await userInfo.setUserInfo();
       closeLoginPanel();
     } else {
       // 其他状态（等待扫码、待确认等），继续轮询

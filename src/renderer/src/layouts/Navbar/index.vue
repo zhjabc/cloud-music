@@ -97,7 +97,7 @@ const openLoginPanel = () => {
         <Avatar>
           <AvatarImage
             :src="
-              userInfo.accountInfo?.profile.avatarUrl ??
+              userInfo.accountInfo?.profile?.avatarUrl ??
               'https://github.com/unovue.png'
             "
             alt="@unovue"
@@ -105,7 +105,7 @@ const openLoginPanel = () => {
         </Avatar>
 
         <div class="text-nowrap">
-          {{ userInfo.accountInfo?.profile.nickname ?? "未登录" }}
+          {{ userInfo.accountInfo?.profile?.nickname ?? "未登录" }}
         </div>
       </div>
       <Switch

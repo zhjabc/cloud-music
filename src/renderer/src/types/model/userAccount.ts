@@ -14,7 +14,7 @@ export interface Account {
   paidFee: boolean;
 }
 
-export interface Profile {
+export interface Profile1 {
   userId: number;
   userType: number;
   nickname: string;
@@ -57,5 +57,17 @@ export interface Profile {
 export interface UserAccount {
   code: number;
   account: Account;
-  profile: Profile;
+  profile: Profile1;
+}
+
+export interface SubAccount {
+  programCount: number;
+  djRadioCount: number;
+  mvCount: number;
+  artistCount: number;
+  newProgramCount: number;
+  createDjRadioCount: number;
+  createdPlaylistCount: number;
+  subPlaylistCount: number;
+  code: number;
 }

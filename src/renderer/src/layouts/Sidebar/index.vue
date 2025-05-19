@@ -1,57 +1,54 @@
 <script setup lang="ts">
 import SidebarItem from "@/layouts/Sidebar/SidebarItem.vue";
-import { computed, reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useUserInfo } from "@/store";
+import PlayListItem from "@/layouts/Sidebar/PlayListItem.vue";
 const router = useRouter();
 const sidebars = reactive([
   {
     id: "/recommend",
     text: "推荐",
-    checked: false,
   },
   {
     id: "/featured",
     text: "精选",
-    checked: false,
   },
   {
     id: "/podcast",
     text: "播客",
-    checked: false,
   },
   {
     id: "4",
     text: "漫游",
-    checked: false,
   },
   {
     id: "/follow",
     text: "关注",
-    checked: false,
   },
 ]);
 const myBars = reactive([
   {
     id: "9",
     text: "我喜欢的音乐",
-    checked: false,
   },
   {
     id: "10",
     text: "最近播放",
-    checked: false,
   },
 ]);
 
-const allBars = computed(() => {
-  return [...sidebars, ...myBars];
-});
+const checkedId = ref();
 
 const handleClick = (id: string): void => {
-  allBars.value.forEach((item) => {
-    item.checked = item.id === id;
-  });
+  checkedId.value = id;
   router.push(id);
+};
+
+const userInfo = useUserInfo();
+
+const handlePlayClick = (id: number) => {
+  checkedId.value = id;
 };
 </script>
 
@@ -67,8 +64,9 @@ const handleClick = (id: string): void => {
         <SidebarItem
           v-for="item in sidebars"
           :key="item.id"
+          :checked="checkedId === item.id"
           v-bind="item"
-          @on-click="handleClick"
+          @click="handleClick"
         />
       </div>
       <div class="border-[0.5px]"></div>
@@ -78,8 +76,45 @@ const handleClick = (id: string): void => {
           <SidebarItem
             v-for="item in myBars"
             :key="item.id"
+            :checked="checkedId === item.id"
             v-bind="item"
-            @on-click="handleClick"
+            @click="handleClick"
+          />
+        </div>
+      </div>
+
+      <div class="border-[0.5px]"></div>
+      <div class="my">
+        <div class="py-[10px] pl-[8px] text-[13px] text-[#76767a]">
+          创建的歌单<span class="ml-1">{{
+            userInfo.subAccount?.createdPlaylistCount ?? 0
+          }}</span>
+        </div>
+        <div class="space-y-[5px]">
+          <PlayListItem
+            v-for="item in userInfo.createPlayList"
+            :key="item.id"
+            :checked="checkedId === item.id"
+            :playlist="item"
+            @click="handlePlayClick"
+          />
+        </div>
+      </div>
+
+      <div class="border-[0.5px]"></div>
+      <div class="my">
+        <div class="py-[10px] pl-[8px] text-[13px] text-[#76767a]">
+          收藏的歌单<span class="ml-1">{{
+            userInfo.subAccount?.subPlaylistCount ?? 0
+          }}</span>
+        </div>
+        <div class="space-y-[5px]">
+          <PlayListItem
+            v-for="item in userInfo.subscribePlayList"
+            :key="item.id"
+            :checked="checkedId === item.id"
+            :playlist="item"
+            @click="handlePlayClick"
           />
         </div>
       </div>

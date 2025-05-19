@@ -8,3 +8,8 @@ export type SongLevel =
   | "sky"
   | "dolby"
   | "jymaster";
+
+export interface Page {
+  offset?: number;
+  limit?: number;
+}
