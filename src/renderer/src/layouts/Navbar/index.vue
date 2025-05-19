@@ -60,7 +60,7 @@ const showLoginPanel = ref(false);
 const userInfo = useUserInfo();
 
 const openLoginPanel = () => {
-  showLoginPanel.value = !userInfo;
+  showLoginPanel.value = !userInfo.accountInfo;
 };
 </script>
 
