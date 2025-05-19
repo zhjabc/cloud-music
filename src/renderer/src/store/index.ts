@@ -7,7 +7,15 @@ import {
 } from "@/api/user";
 import { SubAccount, UserAccount } from "@/types/model/userAccount";
 import { computed, ref } from "vue";
-import { UserDetail, UserPlayList } from "@/types";
+import {
+  Song,
+  SongDetail,
+  SongLevel,
+  SongUrl,
+  UserDetail,
+  UserPlayList,
+} from "@/types";
+import { getSongDetail, getSongUrl } from "@/api/public";
 
 export const useUserInfo = defineStore(
   "userInfo",
@@ -77,6 +85,62 @@ export const useUserInfo = defineStore(
       key: "userInfo",
       storage: localStorage,
       pick: ["accountInfo", "subAccount", "userPlaylist", "userDetail"],
+    },
+  },
+);
+
+export const usePlayerStore = defineStore(
+  "player",
+  () => {
+    const isPlaying = ref(false);
+    const currentSong = ref<SongUrl>();
+    const currentSongDetail = ref<Song>();
+    const currentIndex = ref(0);
+    const playList = ref<SongDetail[]>([]);
+
+    const setCurrentSong = async (
+      id: string,
+      level: SongLevel = "standard",
+    ) => {
+      const res = await getSongUrl({ id, level });
+      currentSong.value = res.data[0];
+    };
+
+    const setCurrentDetail = async (ids: string) => {
+      const res = await getSongDetail({ ids });
+      currentSongDetail.value = res.songs[0];
+    };
+
+    const setCurrentIndex = (index: number) => {
+      currentIndex.value = index;
+    };
+
+    const setPlayList = (list: SongDetail[]) => {
+      playList.value = list;
+    };
+
+    const setSongInfo = (id: string) => {
+      setCurrentSong(id);
+      setCurrentDetail(id);
+    };
+
+    return {
+      isPlaying,
+      currentSong,
+      currentSongDetail,
+      currentIndex,
+      playList,
+      setCurrentSong,
+      setCurrentIndex,
+      setPlayList,
+      setSongInfo,
+    };
+  },
+  {
+    persist: {
+      key: "player",
+      storage: localStorage,
+      pick: ["currentSong", "currentSongDetail"],
     },
   },
 );

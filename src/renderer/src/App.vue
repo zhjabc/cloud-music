@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Sidebar from "@/layouts/Sidebar/index.vue";
 import Navbar from "@/layouts/Navbar/index.vue";
+import PlayerPanel from "@/components/PlayerPanel/index.vue";
+import Toaster from "@/components/ui/toast/Toaster.vue";
 </script>
 
 <template>
-  <div class="flex h-screen flex-nowrap overflow-hidden">
+  <div class="relative flex h-screen flex-nowrap overflow-hidden">
     <div class="w-[200px]">
       <Sidebar />
     </div>
@@ -15,4 +17,6 @@ import Navbar from "@/layouts/Navbar/index.vue";
       </div>
     </div>
   </div>
+  <PlayerPanel class="absolute bottom-0" />
+  <Toaster />
 </template>

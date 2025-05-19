@@ -2,28 +2,34 @@
 import { useRoute } from "vue-router";
 import { msToTime } from "@/utils";
 import { ref, watch } from "vue";
-import { checkMusic, getSearchSong } from "@/api/public";
+import { checkMusic, getSearchSong, getSongUrl } from "@/api/public";
 import { SearchSong, Song } from "@/types";
 import { debounce } from "lodash";
 import { useScroll } from "@/hooks/useScroll";
+import { useToast } from "@/components/ui/toast/use-toast";
+import { usePlayerStore } from "@/store";
 
+const { toast } = useToast();
 const route = useRoute();
+const playerStore = usePlayerStore();
 
 const searchResult = ref<SearchSong>();
 
-let offset = 0;
+let currentPage = 1;
+const limit = 30;
 
 const songsList = ref<Song[]>([]);
 
 const getSongList = async (keywords: string) => {
-  const res = await getSearchSong<SearchSong>({
+  const res = await getSearchSong({
     keywords,
-    offset,
+    offset: currentPage * limit,
   });
   searchResult.value = res.result;
-  songsList.value.push(...res.result.songs);
-  if (offset * 30 < (searchResult.value?.songCount ?? 0)) {
-    offset++;
+  songsList.value = [...songsList.value, ...res.result.songs];
+
+  if (currentPage * limit < (searchResult.value?.songCount ?? 0)) {
+    currentPage++;
   }
 };
 const debouncedSearch = debounce(getSongList, 300);
@@ -38,7 +44,7 @@ const saveSearchRecords = (value: string) => {
 watch(
   () => [route.query.keywords, route.query._t],
   ([newKeywords]) => {
-    offset = 0;
+    currentPage = 0;
     songsList.value = [];
     debouncedSearch(newKeywords as string);
     saveSearchRecords(newKeywords as string);
@@ -48,15 +54,23 @@ watch(
 
 const scrollRef = ref<HTMLElement | null>(null);
 useScroll(scrollRef, () => {
-  if (offset * 30 >= (searchResult.value?.songCount ?? 0)) {
+  if (currentPage * limit >= (searchResult.value?.songCount ?? 0)) {
     return;
   }
   getSongList(route.query.keywords as string);
 });
 
-const handleDbClick = (item: Song) => {
-  // getSongUrl({ id: "" + item.id, level: "standard" });
-  checkMusic({ id: item.id });
+const handleDbClick = async (item: Song) => {
+  const res = await checkMusic({ id: item.id });
+  if (res.success) {
+    playerStore.setSongInfo("" + item.id);
+  } else {
+    toast({
+      title: res.message,
+      variant: "destructive",
+      duration: 2000,
+    });
+  }
 };
 </script>
 

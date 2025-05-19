@@ -35,7 +35,7 @@
     /*  布局*/
     --background-sidebar: 216 22% 95%;
     --background-sidebar-hover: 210 17% 91%;
-    --background-player: 222 22% 26%;
+    --background-player: 0 0% 98%;
     --background-login: var(--background-secondary);
     --background-search-record: var(--background-secondary);
     --background-search-record-hover: 210 8% 95%;

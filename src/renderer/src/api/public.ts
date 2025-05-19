@@ -1,12 +1,22 @@
 import request from "@/utils/request";
-import { CommonResult, HotDetail, QrCheck, Result, SongLevel } from "@/types";
+import {
+  CommonResult,
+  HotDetail,
+  QrCheck,
+  Result,
+  SearchSong,
+  SongDetail,
+  SongLevel,
+  SongUrl,
+} from "@/types";
+
 // 搜索歌曲
-export const getSearchSong = <T>(params: {
+export const getSearchSong = (params: {
   keywords: string;
   limit?: number;
   type?: number;
   offset?: number;
-}): Promise<Result<T>> => {
+}): Promise<Result<SearchSong>> => {
   return request({
     url: "/cloudsearch",
     method: "get",
@@ -23,12 +33,21 @@ export const getHotSearch = (): Promise<CommonResult<HotDetail[]>> => {
 };
 
 // 获取音乐 url - 新版
-export const getSongUrl = <T>(params: {
+export const getSongUrl = (params: {
   id: string;
   level: SongLevel;
-}): Promise<Result<T>> => {
+}): Promise<CommonResult<SongUrl>> => {
   return request({
     url: "/song/url/v1",
+    method: "get",
+    params,
+  });
+};
+
+// 获取歌曲详情
+export const getSongDetail = (params: { ids: string }): Promise<SongDetail> => {
+  return request({
+    url: "/song/detail",
     method: "get",
     params,
   });
@@ -37,13 +56,11 @@ export const getSongUrl = <T>(params: {
 //检查音乐是否可用
 export const checkMusic = (params: {
   id: number;
-}): Promise<
-  Result<{
-    code: number;
-    message: string;
-    success: boolean;
-  }>
-> => {
+}): Promise<{
+  code: number;
+  message: string;
+  success: boolean;
+}> => {
   return request({
     url: "/check/music",
     method: "get",

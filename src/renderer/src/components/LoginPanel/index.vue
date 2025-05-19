@@ -28,7 +28,7 @@ const getQrCodeFn = async () => {
   checkQrCodeFn();
 };
 
-let qrCheckTimer;
+let qrCheckTimer: NodeJS.Timeout;
 const userInfo = useUserInfo();
 
 const checkQrCodeFn = async () => {

@@ -1,4 +1,4 @@
-export * from "./searchSong";
+export * from "./song";
 export * from "./hotSearch";
 export * from "./userPlayList";
 export * from "./userDetail";
