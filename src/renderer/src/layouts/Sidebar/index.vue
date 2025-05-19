@@ -53,14 +53,14 @@ const handlePlayClick = (id: number) => {
 </script>
 
 <template>
-  <div class="h-full w-[200px] bg-background-secondary">
+  <div class="flex h-full w-[200px] flex-col bg-background-secondary">
     <div class="drag h-[30px] w-full"></div>
     <div class="flex items-center justify-center space-x-[6px] pb-[20px]">
       <span class="iconfont icon-wangyiyun text-[28px] text-[#fc3c5a]"></span>
       <span class="text-2xl">网易云音乐</span>
     </div>
-    <div class="h-full overflow-y-auto p-[0_15px_0_20px] scrollbar">
-      <div class="mb-[20px] space-y-[5px]">
+    <div class="mb-[20px] flex-1 overflow-y-auto p-[0_15px_0_20px] scrollbar">
+      <div class="space-y-[5px]">
         <SidebarItem
           v-for="item in sidebars"
           :key="item.id"
@@ -69,9 +69,11 @@ const handlePlayClick = (id: number) => {
           @click="handleClick"
         />
       </div>
-      <div class="border-[0.5px]"></div>
-      <div class="my">
-        <div class="py-[10px] pl-[8px] text-[13px] text-[#76767a]">我的</div>
+
+      <div class="my-[10px] border-[0.5px]" />
+
+      <div class="space-y-[5px]">
+        <div class="py-[5px] pl-[8px] text-[13px] text-[#76767a]">我的</div>
         <div class="space-y-[5px]">
           <SidebarItem
             v-for="item in myBars"
@@ -83,9 +85,10 @@ const handlePlayClick = (id: number) => {
         </div>
       </div>
 
-      <div class="border-[0.5px]"></div>
-      <div class="my">
-        <div class="py-[10px] pl-[8px] text-[13px] text-[#76767a]">
+      <div class="my-[10px] border-[0.5px]" />
+
+      <div class="space-y-[5px]">
+        <div class="py-[5px] pl-[8px] text-[13px] text-[#76767a]">
           创建的歌单<span class="ml-1">{{
             userInfo.subAccount?.createdPlaylistCount ?? 0
           }}</span>
@@ -101,9 +104,10 @@ const handlePlayClick = (id: number) => {
         </div>
       </div>
 
-      <div class="border-[0.5px]"></div>
-      <div class="my">
-        <div class="py-[10px] pl-[8px] text-[13px] text-[#76767a]">
+      <div class="my-[10px] border-[0.5px]" />
+
+      <div class="space-y-[5px]">
+        <div class="py-[5px] pl-[8px] text-[13px] text-[#76767a]">
           收藏的歌单<span class="ml-1">{{
             userInfo.subAccount?.subPlaylistCount ?? 0
           }}</span>
