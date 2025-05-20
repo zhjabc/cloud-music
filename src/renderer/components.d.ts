@@ -15,6 +15,7 @@ declare module 'vue' {
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     LoginPanel: typeof import('./src/components/LoginPanel/index.vue')['default']
     PlayerPanel: typeof import('./src/components/PlayerPanel/index.vue')['default']
+    PlayListPanel: typeof import('./src/components/PlayListPanel/index.vue')['default']
     PlayPanel: typeof import('./src/components/PlayPanel/index.vue')['default']
     Progress: typeof import('./src/components/ui/progress/Progress.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

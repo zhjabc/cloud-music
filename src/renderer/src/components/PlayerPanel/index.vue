@@ -11,7 +11,9 @@ import {
   PlayCycle,
   VolumeNotice,
   VolumeMute,
+  MusicList,
 } from "@icon-park/vue-next";
+import PlayListPanel from "@/components/PlayListPanel/index.vue";
 
 const playerStore = usePlayerStore();
 const playUrl = computed(() => playerStore.currentSong?.url ?? "");
@@ -46,9 +48,8 @@ const toggleSong = () => {
   if (currentSonge) {
     playerStore.setSongInfo("" + currentSonge.id);
   }
-
-  console.log("currentSonge", currentSonge);
 };
+const showPlayListPanel = ref(false);
 </script>
 
 <template>
@@ -106,7 +107,12 @@ const toggleSong = () => {
       </div>
     </div>
     <div class="flex space-x-4">
-      <div class="cursor-pointer">歌词查看</div>
+      <music-list
+        class="cursor-pointer"
+        theme="outline"
+        size="24"
+        @click="showPlayListPanel = !showPlayListPanel"
+      />
       <div class="flex cursor-pointer items-center space-x-3">
         <volume-mute
           v-if="isMute"
@@ -129,6 +135,11 @@ const toggleSong = () => {
         />
       </div>
     </div>
+
+    <PlayListPanel
+      v-if="showPlayListPanel"
+      class="fixed bottom-[100px] right-[10px]"
+    />
   </div>
 </template>
 

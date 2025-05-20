@@ -2,7 +2,7 @@
 import SidebarItem from "@/layouts/Sidebar/SidebarItem.vue";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserInfo } from "@/store";
+import { usePlayerStore, useUserInfo } from "@/store";
 import PlayListItem from "@/layouts/Sidebar/PlayListItem.vue";
 const router = useRouter();
 const sidebars = reactive([
@@ -50,6 +50,7 @@ const userInfo = useUserInfo();
 const handlePlayClick = (id: number) => {
   checkedId.value = id;
 };
+const playerStore = usePlayerStore();
 </script>
 
 <template>
@@ -59,7 +60,10 @@ const handlePlayClick = (id: number) => {
       <span class="iconfont icon-wangyiyun text-[28px] text-[#fc3c5a]"></span>
       <span class="text-2xl">网易云音乐</span>
     </div>
-    <div class="mb-[20px] flex-1 overflow-y-auto p-[0_15px_0_20px] scrollbar">
+    <div
+      class="flex-1 overflow-y-auto p-[0_15px_0_20px] scrollbar"
+      :class="playerStore.currentSong ? 'mb-[80px]' : 'mb-[20px]'"
+    >
       <div class="space-y-[5px]">
         <SidebarItem
           v-for="item in sidebars"

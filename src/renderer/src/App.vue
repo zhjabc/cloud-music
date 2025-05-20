@@ -12,11 +12,11 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
     </div>
     <div class="flex flex-1 flex-col">
       <Navbar />
-      <div class="flex-1 overflow-hidden">
+      <div class="flex-1">
         <router-view />
       </div>
     </div>
   </div>
-  <PlayerPanel class="absolute bottom-0" />
+  <PlayerPanel class="fixed bottom-0 left-0 right-0 z-10" />
   <Toaster />
 </template>
