@@ -2,12 +2,13 @@
 import { useRoute } from "vue-router";
 import { msToTime } from "@/utils";
 import { ref, watch } from "vue";
-import { checkMusic, getSearchSong, getSongUrl } from "@/api/public";
+import { checkMusic, getSearchSong } from "@/api/public";
 import { SearchSong, Song } from "@/types";
 import { debounce } from "lodash";
 import { useScroll } from "@/hooks/useScroll";
 import { useToast } from "@/components/ui/toast/use-toast";
 import { usePlayerStore } from "@/store";
+import { Like } from "@icon-park/vue-next";
 
 const { toast } = useToast();
 const route = useRoute();
@@ -131,7 +132,7 @@ const handleDbClick = async (item: Song) => {
           {{ item.al.name }}
         </div>
         <div class="flex-[1] p-[3px_8px] text-foreground-secondary">
-          <!--          <like theme="outline" size="24" fill="#333" />-->
+          <like theme="outline" size="20" />
         </div>
         <div class="flex-[1] p-[3px_8px] text-foreground-secondary">
           {{ msToTime(item.dt) }}

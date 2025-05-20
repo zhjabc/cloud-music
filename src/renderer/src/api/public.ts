@@ -78,6 +78,7 @@ export const getQrKey = <T>(): Promise<CommonResult<T>> => {
     },
   });
 };
+
 export const createQrCode = <T>(params: {
   key: string;
   qrimg?: boolean;
@@ -88,6 +89,7 @@ export const createQrCode = <T>(params: {
     params: { ...params, timestamp: Date.now() },
   });
 };
+
 export const checkQrCode = (params: {
   key: string;
   noCookie?: boolean;

@@ -1,66 +1,133 @@
 <script setup lang="ts">
-import { playAudio } from "@/utils";
-import { watch, ref } from "vue";
 import { usePlayerStore } from "@/store";
-import { Howl } from "howler";
+import { useAudioPlayer } from "@/hooks/useAudioPlayer";
+import { computed, ref } from "vue";
+import {
+  Play,
+  PauseOne,
+  GoStart,
+  GoEnd,
+  Like,
+  PlayCycle,
+  VolumeNotice,
+  VolumeMute,
+} from "@icon-park/vue-next";
 
 const playerStore = usePlayerStore();
-const isPlaying = ref(false);
+const playUrl = computed(() => playerStore.currentSong?.url ?? "");
+const {
+  isPlaying,
+  sound,
+  progress,
+  duration,
+  currentTime,
+  setVolume,
+  volume,
+  isMute,
+  setMute,
+} = useAudioPlayer(playUrl);
 
-let sound: Howl | null = null;
-watch(
-  () => playerStore.currentSong?.url,
-  (newVal) => {
-    if (newVal) {
-      sound = playAudio(newVal);
-      isPlaying.value = true;
-    }
-  },
-);
 const handlePlay = () => {
   if (isPlaying.value) {
-    sound?.pause();
+    sound.value?.pause();
   } else {
-    sound?.play();
+    sound.value?.play();
   }
-  isPlaying.value = !isPlaying.value;
+};
+const value = ref([volume.value]);
+
+const toggleSong = () => {
+  let currentSonge;
+  if (playerStore.currentIndex >= playerStore.playList.length - 1) {
+    currentSonge = playerStore.playList[0];
+  } else {
+    currentSonge = playerStore.playList[playerStore.currentIndex + 1];
+  }
+  if (currentSonge) {
+    playerStore.setSongInfo("" + currentSonge.id);
+  }
+
+  console.log("currentSonge", currentSonge);
 };
 </script>
 
 <template>
   <div
     v-show="playerStore.currentSong"
-    class="flex h-[75px] w-full items-center justify-evenly border-t-[0.5px] bg-background-player"
+    class="flex h-[75px] w-full items-center justify-evenly overflow-hidden border-t-[0.5px] bg-background-player"
   >
     <div class="flex items-center space-x-2">
-      <img
-        class="h-14 w-14 rounded-full"
-        :src="playerStore.currentSongDetail.al.picUrl"
-        alt="海报"
-      />
+      <div
+        class="h-16 w-16 rounded-full bg-[#242424] p-[10px]"
+        :class="{ 'animate-spin-slow': isPlaying }"
+      >
+        <img
+          class="rounded-full"
+          :src="playerStore.currentSongDetail?.al.picUrl"
+          alt="海报"
+        />
+      </div>
 
       <div class="flex flex-col">
         <div class="space-x-1">
-          <span>{{ playerStore.currentSongDetail.name }}</span>
+          <span>{{ playerStore.currentSongDetail?.name }}</span>
           <span class="text-foreground-secondary">-</span
           ><span class="text-foreground-secondary">{{
-            playerStore.currentSongDetail.ar[0].name
+            playerStore.currentSongDetail?.ar[0].name
           }}</span>
         </div>
       </div>
     </div>
-    <div class="flex space-x-2">
-      <div class="cursor-pointer">收藏</div>
-      <div class="cursor-pointer">上一首</div>
-      <div class="cursor-pointer" @click="handlePlay">
-        {{ isPlaying ? "暂停" : "播放" }}
+    <div class="flex flex-col items-center">
+      <div class="flex items-center space-x-5">
+        <like class="cursor-pointer" theme="outline" size="24" />
+        <go-start
+          class="cursor-pointer"
+          theme="outline"
+          size="24"
+          @click="toggleSong"
+        />
+        <div class="cursor-pointer" @click="handlePlay">
+          <pause-one v-if="isPlaying" theme="outline" size="32" />
+          <play v-else theme="outline" size="32" />
+        </div>
+        <go-end
+          class="cursor-pointer"
+          theme="outline"
+          size="24"
+          @click="toggleSong"
+        />
+        <play-cycle theme="outline" size="24" />
       </div>
-      <div class="cursor-pointer">下一首</div>
-      <div class="cursor-pointer">循环</div>
+      <div class="flex items-center space-x-2 text-xs font-medium">
+        <span>{{ currentTime }}</span>
+        <Progress v-model="progress" class="h-1.5 w-[380px] bg-[#4d4d57]" />
+        <span>{{ duration }}</span>
+      </div>
     </div>
-    <div class="flex space-x-2">
+    <div class="flex space-x-4">
       <div class="cursor-pointer">歌词查看</div>
-      <div class="cursor-pointer">音量调节</div>
+      <div class="flex cursor-pointer items-center space-x-3">
+        <volume-mute
+          v-if="isMute"
+          theme="outline"
+          size="24"
+          @click="() => setMute(false)"
+        />
+        <volume-notice
+          v-else
+          theme="outline"
+          size="24"
+          @click="() => setMute(true)"
+        />
+        <Slider
+          v-model="value"
+          class="w-[100px]"
+          :max="1"
+          :step="0.01"
+          @update:model-value="(val: number[]) => setVolume(val[0])"
+        />
+      </div>
     </div>
   </div>
 </template>

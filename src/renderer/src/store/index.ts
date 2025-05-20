@@ -7,14 +7,7 @@ import {
 } from "@/api/user";
 import { SubAccount, UserAccount } from "@/types/model/userAccount";
 import { computed, ref } from "vue";
-import {
-  Song,
-  SongDetail,
-  SongLevel,
-  SongUrl,
-  UserDetail,
-  UserPlayList,
-} from "@/types";
+import { Song, SongLevel, SongUrl, UserDetail, UserPlayList } from "@/types";
 import { getSongDetail, getSongUrl } from "@/api/public";
 
 export const useUserInfo = defineStore(
@@ -95,8 +88,8 @@ export const usePlayerStore = defineStore(
     const isPlaying = ref(false);
     const currentSong = ref<SongUrl>();
     const currentSongDetail = ref<Song>();
-    const currentIndex = ref(0);
-    const playList = ref<SongDetail[]>([]);
+    const currentIndex = ref(-1);
+    const playList = ref<Song[]>([]);
 
     const setCurrentSong = async (
       id: string,
@@ -111,17 +104,25 @@ export const usePlayerStore = defineStore(
       currentSongDetail.value = res.songs[0];
     };
 
-    const setCurrentIndex = (index: number) => {
-      currentIndex.value = index;
+    const setCurrentIndex = (id: string) => {
+      currentIndex.value = playList.value.findIndex((item) => item.id == id);
     };
 
-    const setPlayList = (list: SongDetail[]) => {
-      playList.value = list;
+    const setPlayList = async (ids: string, song: Song) => {
+      const idList = ids.split(",");
+      const findValue = playList.value.find((item) =>
+        idList.includes("" + item.id),
+      );
+      if (!findValue) {
+        playList.value.unshift(song);
+      }
     };
 
-    const setSongInfo = (id: string) => {
-      setCurrentSong(id);
-      setCurrentDetail(id);
+    const setSongInfo = async (id: string) => {
+      await setCurrentSong(id);
+      await setCurrentDetail(id);
+      setPlayList(id, currentSongDetail.value as Song);
+      setCurrentIndex(id);
     };
 
     return {
@@ -132,7 +133,6 @@ export const usePlayerStore = defineStore(
       playList,
       setCurrentSong,
       setCurrentIndex,
-      setPlayList,
       setSongInfo,
     };
   },
@@ -140,7 +140,7 @@ export const usePlayerStore = defineStore(
     persist: {
       key: "player",
       storage: localStorage,
-      pick: ["currentSong", "currentSongDetail"],
+      pick: ["currentSong", "currentSongDetail", "playList", "currentIndex"],
     },
   },
 );
