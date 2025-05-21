@@ -124,7 +124,10 @@ const handleDbClick = async (item: Song) => {
             class="mr-[8px] h-[50px] w-[50px] rounded-lg"
             :src="item.al.picUrl"
           />
-          <div class="line-clamp-1 text-[#5e7cbd]">{{ item.name }}</div>
+          <div>
+            <div class="line-clamp-1 text-[#5e7cbd]">{{ item.name }}</div>
+            <div class="text-foreground-secondary">{{ item.ar[0].name }}</div>
+          </div>
         </div>
         <div
           class="line-clamp-1 flex-[2] p-[3px_8px] text-[14px] text-foreground-secondary"

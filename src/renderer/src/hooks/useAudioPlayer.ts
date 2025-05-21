@@ -60,6 +60,7 @@ export const useAudioPlayer = (src: Ref<string>) => {
   const setVolume = (value: number) => {
     const newVolume = Math.max(0, Math.min(1, value)); // 确保音量在 0-1 之间
     volume.value = newVolume;
+    isMute.value = newVolume === 0;
     if (sound.value) {
       sound.value.volume(newVolume);
     }
