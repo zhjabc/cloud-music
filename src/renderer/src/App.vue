@@ -6,13 +6,13 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
 </script>
 
 <template>
-  <div class="relative flex h-screen flex-nowrap overflow-hidden">
+  <div class="relative flex h-screen flex-nowrap">
     <div class="w-[200px]">
       <Sidebar />
     </div>
     <div class="flex flex-1 flex-col">
       <Navbar />
-      <div class="flex-1">
+      <div class="flex-1 overflow-hidden">
         <router-view />
       </div>
     </div>
