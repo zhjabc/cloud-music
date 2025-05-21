@@ -30,10 +30,16 @@ const {
 } = useAudioPlayer(playUrl);
 
 const handlePlay = () => {
-  if (isPlaying.value) {
-    sound.value?.pause();
+  if (sound.value) {
+    if (isPlaying.value) {
+      sound.value.pause();
+    } else {
+      sound.value.play();
+    }
   } else {
-    sound.value?.play();
+    playerStore.setSongInfo(
+      "" + playerStore.playList[playerStore.currentIndex].id,
+    );
   }
 };
 const value = ref([volume.value]);
