@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePlayerStore } from "@/store";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import {
   Play,
   PauseOne,
@@ -42,7 +42,11 @@ const handlePlay = () => {
     );
   }
 };
-const value = ref([volume.value]);
+const volumeValue = ref([volume.value]);
+
+watch(volume, (value) => {
+  volumeValue.value = [value];
+});
 
 const toggleSong = () => {
   let currentSonge;
@@ -133,7 +137,7 @@ const showPlayListPanel = ref(false);
           @click="() => setMute(true)"
         />
         <Slider
-          v-model="value"
+          v-model="volumeValue"
           class="w-[100px]"
           :max="1"
           :step="0.01"
