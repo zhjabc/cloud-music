@@ -21,16 +21,23 @@ const limit = 30;
 
 const songsList = ref<Song[]>([]);
 
-const getSongList = async (keywords: string) => {
-  const res = await getSearchSong({
-    keywords,
-    offset: currentPage * limit,
-  });
-  searchResult.value = res.result;
-  songsList.value = [...songsList.value, ...res.result.songs];
+const loading = ref(false);
 
-  if (currentPage * limit < (searchResult.value?.songCount ?? 0)) {
-    currentPage++;
+const getSongList = async (keywords: string) => {
+  loading.value = true;
+  try {
+    const res = await getSearchSong({
+      keywords,
+      offset: currentPage * limit,
+    });
+    searchResult.value = res.result;
+    songsList.value = [...songsList.value, ...res.result.songs];
+
+    if (currentPage * limit < (searchResult.value?.songCount ?? 0)) {
+      currentPage++;
+    }
+  } finally {
+    loading.value = false;
   }
 };
 const debouncedSearch = debounce(getSongList, 300);
@@ -55,7 +62,11 @@ watch(
 
 const scrollRef = ref<HTMLElement | null>(null);
 useScroll(scrollRef, () => {
-  if (currentPage * limit >= (searchResult.value?.songCount ?? 0)) {
+  if (
+    loading.value ||
+    songsList.value.length === 0 ||
+    currentPage * limit >= (searchResult.value?.songCount ?? 0)
+  ) {
     return;
   }
   getSongList(route.query.keywords as string);
@@ -76,7 +87,10 @@ const handleDbClick = async (item: Song) => {
 </script>
 
 <template>
-  <div class="flex h-full flex-col py-[15px]">
+  <div
+    class="flex h-full flex-col py-[15px]"
+    :class="{ 'pb-[80px]': playerStore.currentSong }"
+  >
     <div class="mb-[20px] ml-[30px]">
       <span class="text-[26px] font-semibold">{{ route.query.keywords }}</span>
       <span class="ml-[5px] text-[14px] text-foreground-secondary"
