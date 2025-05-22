@@ -3,6 +3,9 @@ import Sidebar from "@/layouts/Sidebar/index.vue";
 import Navbar from "@/layouts/Navbar/index.vue";
 import PlayerPanel from "@/components/PlayerPanel/index.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
+import { usePlayerStore } from "@/store";
+
+const playerStore = usePlayerStore();
 </script>
 
 <template>
@@ -12,7 +15,10 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
     </div>
     <div class="flex flex-1 flex-col">
       <Navbar />
-      <div class="flex-1 overflow-hidden">
+      <div
+        class="flex-1 overflow-hidden"
+        :class="{ 'pb-[80px]': playerStore.currentSong }"
+      >
         <router-view />
       </div>
     </div>

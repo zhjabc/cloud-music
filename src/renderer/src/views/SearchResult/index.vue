@@ -87,10 +87,7 @@ const handleDbClick = async (item: Song) => {
 </script>
 
 <template>
-  <div
-    class="flex h-full flex-col py-[15px]"
-    :class="{ 'pb-[80px]': playerStore.currentSong }"
-  >
+  <div class="flex h-full flex-col py-[15px]">
     <div class="mb-[20px] ml-[30px]">
       <span class="text-[26px] font-semibold">{{ route.query.keywords }}</span>
       <span class="ml-[5px] text-[14px] text-foreground-secondary"
