@@ -43,7 +43,7 @@ const handlePlay = (id: number) => {
               <div class="relative cursor-pointer">
                 <img :src="item.picUrl" alt="" class="rounded" />
                 <div
-                  class="absolute bottom-0 left-0 line-clamp-2 h-1/3 w-full rounded-bl rounded-br bg-[#fc3d5a] px-4 py-0.5 text-sm text-white"
+                  class="absolute bottom-0 left-0 line-clamp-2 h-1/3 w-full rounded-bl rounded-br bg-[#fc3d5a] px-4 py-0.5 text-sm text-white opacity-90"
                 >
                   {{ item.name }}
                 </div>
