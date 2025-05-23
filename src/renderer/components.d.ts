@@ -62,6 +62,7 @@ declare module 'vue' {
     ToastProvider: typeof import('./src/components/ui/toast/ToastProvider.vue')['default']
     ToastTitle: typeof import('./src/components/ui/toast/ToastTitle.vue')['default']
     ToastViewport: typeof import('./src/components/ui/toast/ToastViewport.vue')['default']
+    Zhj_dialog: typeof import('./src/components/zhj_ui/zhj_dialog.vue')['default']
     Zhj_input: typeof import('./src/components/zhj_ui/zhj_input.vue')['default']
     Zhj_phone_input: typeof import('./src/components/zhj_ui/zhj_phone_input.vue')['default']
   }

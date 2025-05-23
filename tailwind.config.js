@@ -5,7 +5,7 @@ import tailwindcss_animate from "tailwindcss-animate";
 
 module.exports = {
   darkMode: ["class"],
-  important: "#app",
+  important: "body",
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -67,10 +67,10 @@ module.exports = {
         },
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
-        'spin-medium': 'spin 2s linear infinite',
-        'spin-fast': 'spin 1s linear infinite',
-      }
+        "spin-slow": "spin 3s linear infinite",
+        "spin-medium": "spin 2s linear infinite",
+        "spin-fast": "spin 1s linear infinite",
+      },
     },
   },
   plugins: [tailwind_scrollbar({ nocompatible: true }), tailwindcss_animate],

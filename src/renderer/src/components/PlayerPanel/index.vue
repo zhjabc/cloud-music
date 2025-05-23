@@ -65,7 +65,7 @@ const showPlayListPanel = ref(false);
 <template>
   <div
     v-show="playerStore.currentSong"
-    class="flex h-[75px] w-full items-center justify-evenly overflow-hidden border-t-[0.5px] bg-background-player drop-shadow"
+    class="flex h-[75px] w-full items-center justify-evenly border-t-[0.5px] bg-background-player drop-shadow"
   >
     <div class="flex items-center space-x-2">
       <div
@@ -148,7 +148,7 @@ const showPlayListPanel = ref(false);
 
     <PlayListPanel
       v-if="showPlayListPanel"
-      class="fixed bottom-[100px] right-[10px]"
+      class="fixed bottom-[100px] right-0"
     />
   </div>
 </template>

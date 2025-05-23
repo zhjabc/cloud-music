@@ -88,7 +88,7 @@ export const usePlayerStore = defineStore(
     const isPlaying = ref(false);
     const currentSong = ref<SongUrl>();
     const currentSongDetail = ref<Song>();
-    const currentIndex = ref(-1);
+    const currentIndex = ref<number>(-1);
     const playList = ref<Song[]>([]);
 
     const setCurrentSong = async (
@@ -125,6 +125,13 @@ export const usePlayerStore = defineStore(
       setCurrentIndex(id);
     };
 
+    const clearPlayList = () => {
+      playList.value = [];
+      currentSong.value = undefined;
+      currentSongDetail.value = undefined;
+      currentIndex.value = -1;
+    };
+
     return {
       isPlaying,
       currentSong,
@@ -134,6 +141,7 @@ export const usePlayerStore = defineStore(
       setCurrentSong,
       setCurrentIndex,
       setSongInfo,
+      clearPlayList,
     };
   },
   {
