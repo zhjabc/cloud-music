@@ -30,7 +30,7 @@ const handlePlay = (id: number) => {
   <div v-if="show" class="fixed left-0 top-0 h-full w-full">
     <div class="h-full w-full" @click="emits('update:show', false)"></div>
     <div
-      class="fixed bottom-[100px] right-0 z-10 flex h-[500px] w-[385px] flex-col rounded-xl border-[0.5px] bg-background-player pt-5 drop-shadow"
+      class="fixed bottom-[100px] right-0 z-10 flex h-[calc(100%-200px)] w-[385px] flex-col rounded-xl border-[0.5px] bg-background-player pt-5 drop-shadow"
     >
       <header class="flex items-center justify-between px-5 pb-2">
         <div class="flex">
