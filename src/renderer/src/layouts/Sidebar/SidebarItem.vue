@@ -19,7 +19,7 @@ const handleClick = (): void => {
     class="item-center flex rounded-[5px] p-[8px] hover:cursor-pointer"
     :class="
       checked
-        ? 'bg-[#fc3d4c] hover:bg-[#fc3d4c]'
+        ? 'bg-[#fc3d4c] text-white hover:bg-[#fc3d4c]'
         : 'hover:bg-background-sidebar-hover'
     "
     @click="handleClick"

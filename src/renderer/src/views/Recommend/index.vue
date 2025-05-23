@@ -2,7 +2,11 @@
 import { ref } from "vue";
 import { getRecommend, getRecommendSongs } from "@/api/recommend";
 import { DailySong, Recommend } from "@/types";
-import { Carousel, CarouselContent } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { usePlayerStore } from "@/store";
 
 const recommendList = ref<Recommend[]>([]);
@@ -34,10 +38,15 @@ const handlePlay = (id: number) => {
             <CarouselItem
               v-for="item in recommendList"
               :key="item.id"
-              class="pl-1 md:basis-1/3 lg:basis-1/5"
+              class="px-1 md:basis-1/3 lg:basis-1/5"
             >
-              <div class="cursor-pointer p-1">
+              <div class="relative cursor-pointer">
                 <img :src="item.picUrl" alt="" class="rounded" />
+                <div
+                  class="absolute bottom-0 left-0 h-1/3 w-full rounded-bl rounded-br bg-[#fc3d5a] px-4 py-1 text-[12px] text-white"
+                >
+                  {{ item.name }}
+                </div>
               </div>
             </CarouselItem>
           </CarouselContent>
@@ -49,7 +58,7 @@ const handlePlay = (id: number) => {
     <div class="flex min-h-0 flex-1 flex-col">
       <div class="mb-1 pl-2 text-lg font-bold">每日精选歌曲</div>
       <div
-        class="flex flex-1 flex-wrap items-center space-y-2 overflow-y-auto pl-2 scrollbar"
+        class="flex flex-1 flex-wrap items-center space-y-[5px] overflow-y-auto pl-2 scrollbar"
       >
         <div
           v-for="item in songList"

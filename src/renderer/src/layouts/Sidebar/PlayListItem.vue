@@ -17,10 +17,10 @@ const handleClick = (): void => {
 
 <template>
   <div
-    class="item-center flex space-x-2 rounded-[5px] p-[8px] text-xs hover:cursor-pointer"
+    class="item-center flex cursor-pointer space-x-2 rounded-[5px] p-[8px] text-xs"
     :class="
       checked
-        ? 'bg-[#fc3d4c] hover:bg-[#fc3d4c]'
+        ? 'bg-[#fc3d4c] text-white hover:bg-[#fc3d4c]'
         : 'hover:bg-background-sidebar-hover'
     "
     @click="handleClick"
