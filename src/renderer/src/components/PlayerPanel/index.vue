@@ -145,11 +145,9 @@ const showPlayListPanel = ref(false);
         />
       </div>
     </div>
-
-    <PlayListPanel
-      v-if="showPlayListPanel"
-      class="fixed bottom-[100px] right-0"
-    />
+    <teleport to="body">
+      <PlayListPanel v-model:show="showPlayListPanel" />
+    </teleport>
   </div>
 </template>
 
