@@ -198,7 +198,7 @@ const toggleSong = (n: number) => {
         :style="{ backgroundColor: primaryColor }"
       >
         <div
-          class="h-full w-full rounded-full bg-[#0c0c0c] p-[50px] transition-all"
+          class="h-full w-full rounded-full bg-[#0c0c0c] p-[50px]"
           :class="{ 'animate-spin-10s': isPlaying }"
         >
           <img

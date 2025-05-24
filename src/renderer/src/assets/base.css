@@ -116,12 +116,7 @@
   .scrollbar {
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-background-scrollbar
   }
-  .animate-spin-10s {
-    animation: spin 10s linear infinite;
-  }
-  .animate-spin-5s {
-    animation: spin 10s linear infinite;
-  }
 }
+
 
 
