@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { HotDetail } from "@/types";
+import { DeleteFive } from "@icon-park/vue-next";
+import { showDialog } from "@/utils/register";
+
 defineProps<{
   hots: HotDetail[];
 }>();
@@ -7,6 +10,14 @@ const emits = defineEmits(["change"]);
 const records: string[] = JSON.parse(
   localStorage.getItem("searchRecords") ?? "[]",
 );
+const handleClear = () => {
+  showDialog({
+    title: "确定清空全部历史记录吗？",
+    onOk: () => {
+      localStorage.removeItem("searchRecords");
+    },
+  });
+};
 </script>
 
 <template>
@@ -15,15 +26,17 @@ const records: string[] = JSON.parse(
     @mousedown.stop.prevent
   >
     <div class="history mb-[25px] px-[10px]">
-      <div class="mb-[10px] flex justify-between">
+      <div class="mb-[10px] flex justify-between text-foreground-secondary">
         <div>搜索历史</div>
-        <div>删除</div>
+        <div class="cursor-pointer" @click="handleClear">
+          <delete-five theme="outline" size="20" />
+        </div>
       </div>
       <div class="flex flex-wrap items-center">
         <span
           v-for="item in records"
           :key="item"
-          class="mb-1 mr-2 cursor-pointer text-nowrap rounded-xl border-[0.5px] bg-[#f2f3f4] p-[2px_10px] text-[14px] text-foreground-secondary"
+          class="mb-2 mr-2 cursor-pointer text-nowrap rounded-xl border-[0.5px] bg-[#f2f3f4] p-[2px_10px] text-sm text-foreground-secondary"
           @click="() => emits('change', item)"
         >
           {{ item }}
