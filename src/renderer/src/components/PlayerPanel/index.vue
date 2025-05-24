@@ -13,10 +13,10 @@ import {
   VolumeMute,
   MusicList,
 } from "@icon-park/vue-next";
-import PlayListPanel from "@/components/PlayListPanel/index.vue";
 
 const playerStore = usePlayerStore();
 const playUrl = computed(() => playerStore.currentSong?.url ?? "");
+const audioPLayer = useAudioPlayer(playUrl);
 const {
   isPlaying,
   sound,
@@ -27,7 +27,7 @@ const {
   volume,
   isMute,
   setMute,
-} = useAudioPlayer(playUrl);
+} = audioPLayer;
 
 const handlePlay = () => {
   if (sound.value) {
@@ -48,18 +48,19 @@ watch(volume, (value) => {
   volumeValue.value = [value];
 });
 
-const toggleSong = () => {
+const toggleSong = (n: number) => {
   let currentSonge;
-  if (playerStore.currentIndex >= playerStore.playList.length - 1) {
-    currentSonge = playerStore.playList[0];
-  } else {
-    currentSonge = playerStore.playList[playerStore.currentIndex + 1];
-  }
-  if (currentSonge) {
+  if (playerStore.playList.length) {
+    currentSonge = playerStore.playList[playerStore.currentIndex + n];
+    if (!currentSonge) {
+      currentSonge =
+        playerStore.playList[n > 0 ? 0 : playerStore.playList.length - 1];
+    }
     playerStore.setSongInfo("" + currentSonge.id);
   }
 };
 const showPlayListPanel = ref(false);
+const showLyricsPanel = ref(false);
 </script>
 
 <template>
@@ -69,8 +70,9 @@ const showPlayListPanel = ref(false);
   >
     <div class="flex items-center space-x-2">
       <div
-        class="h-16 w-16 rounded-full bg-[#242424] p-[10px]"
-        :class="{ 'animate-spin-slow': isPlaying }"
+        class="h-16 w-16 cursor-pointer rounded-full bg-[#242424] p-[10px]"
+        :class="{ 'animate-spin-5s': isPlaying }"
+        @click="showLyricsPanel = true"
       >
         <img
           class="rounded-full"
@@ -96,7 +98,7 @@ const showPlayListPanel = ref(false);
           class="cursor-pointer"
           theme="outline"
           size="24"
-          @click="toggleSong"
+          @click="toggleSong(-1)"
         />
         <div class="cursor-pointer" @click="handlePlay">
           <pause-one v-if="isPlaying" theme="outline" size="32" />
@@ -106,7 +108,7 @@ const showPlayListPanel = ref(false);
           class="cursor-pointer"
           theme="outline"
           size="24"
-          @click="toggleSong"
+          @click="toggleSong(1)"
         />
         <play-cycle theme="outline" size="24" />
       </div>
@@ -148,6 +150,9 @@ const showPlayListPanel = ref(false);
     <teleport to="body">
       <PlayListPanel v-model:show="showPlayListPanel" />
     </teleport>
+    <teleport to="body">
+      <PlayerDetailPanel v-model:show="showLyricsPanel" :audio="audioPLayer"
+    /></teleport>
   </div>
 </template>
 

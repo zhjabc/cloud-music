@@ -1,4 +1,4 @@
-import { computed, Ref, ref, watch } from "vue";
+import { computed, onUnmounted, Ref, ref, watch } from "vue";
 import { Howl } from "howler";
 import { msToTime } from "@/utils";
 
@@ -76,6 +76,13 @@ export const useAudioPlayer = (src: Ref<string>) => {
     isMute.value = value;
   };
 
+  const setCurrentTime = (value: number) => {
+    if (sound.value) {
+      sound.value.seek(value);
+      currentTime.value = value;
+    }
+  };
+
   watch(
     src,
     (newVal) => {
@@ -104,6 +111,13 @@ export const useAudioPlayer = (src: Ref<string>) => {
     { immediate: false },
   );
 
+  onUnmounted(() => {
+    if (sound.value) {
+      sound.value.stop();
+      sound.value.unload();
+    }
+  });
+
   return {
     isPlaying,
     progress,
@@ -114,5 +128,6 @@ export const useAudioPlayer = (src: Ref<string>) => {
     setVolume,
     isMute,
     setMute,
+    setCurrentTime,
   };
 };

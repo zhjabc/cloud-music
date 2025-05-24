@@ -8,12 +8,16 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { usePlayerStore } from "@/store";
+import { getColorFromURL } from "@/utils";
 
-const recommendList = ref<Recommend[]>([]);
+const recommendList = ref<(Recommend & { bgColor?: string })[]>([]);
 const songList = ref<DailySong[]>([]);
 const getRecommendList = async () => {
   const res = await getRecommend();
   recommendList.value = res.recommend;
+  for (const recommend of recommendList.value) {
+    recommend.bgColor = (await getColorFromURL(recommend.picUrl)).primary;
+  }
 };
 const getRecommendSongList = async () => {
   const res = await getRecommendSongs();
@@ -43,7 +47,8 @@ const handlePlay = (id: number) => {
               <div class="relative cursor-pointer">
                 <img :src="item.picUrl" alt="" class="rounded" />
                 <div
-                  class="absolute bottom-0 left-0 line-clamp-2 h-1/3 w-full rounded-bl rounded-br bg-[#fc3d5a] px-4 py-0.5 text-sm text-white opacity-90"
+                  :style="{ backgroundColor: item.bgColor }"
+                  class="absolute bottom-0 left-0 line-clamp-2 h-1/3 w-full rounded-bl rounded-br px-4 py-0.5 text-sm text-white"
                 >
                   {{ item.name }}
                 </div>

@@ -11,7 +11,7 @@ const records: string[] = JSON.parse(
 
 <template>
   <div
-    class="h-[600px] overflow-y-auto rounded-md border-[1px] bg-background-search-record py-[20px] scrollbar"
+    class="z-10 h-[600px] overflow-y-auto rounded-md border-[1px] bg-background-search-record py-[20px] scrollbar"
     @mousedown.stop.prevent
   >
     <div class="history mb-[25px] px-[10px]">

@@ -9,6 +9,7 @@ import { SubAccount, UserAccount } from "@/types/model/userAccount";
 import { computed, ref } from "vue";
 import { Song, SongLevel, SongUrl, UserDetail, UserPlayList } from "@/types";
 import { getSongDetail, getSongUrl } from "@/api/public";
+import { getLyric } from "@/api/play";
 
 export const useUserInfo = defineStore(
   "userInfo",
@@ -90,6 +91,7 @@ export const usePlayerStore = defineStore(
     const currentSongDetail = ref<Song>();
     const currentIndex = ref<number>(-1);
     const playList = ref<Song[]>([]);
+    const lyric = ref<string>();
 
     const setCurrentSong = async (
       id: string,
@@ -118,9 +120,15 @@ export const usePlayerStore = defineStore(
       }
     };
 
+    const setLyric = async (id: string) => {
+      const res = await getLyric(id);
+      lyric.value = res.lrc.lyric;
+    };
+
     const setSongInfo = async (id: string) => {
-      await setCurrentSong(id);
       await setCurrentDetail(id);
+      setCurrentSong(id);
+      setLyric(id);
       setPlayList(id, currentSongDetail.value as Song);
       setCurrentIndex(id);
     };
@@ -138,6 +146,7 @@ export const usePlayerStore = defineStore(
       currentSongDetail,
       currentIndex,
       playList,
+      lyric,
       setCurrentSong,
       setCurrentIndex,
       setSongInfo,
@@ -148,7 +157,13 @@ export const usePlayerStore = defineStore(
     persist: {
       key: "player",
       storage: localStorage,
-      pick: ["currentSong", "currentSongDetail", "playList", "currentIndex"],
+      pick: [
+        "currentSong",
+        "currentSongDetail",
+        "playList",
+        "currentIndex",
+        "lyric",
+      ],
     },
   },
 );
