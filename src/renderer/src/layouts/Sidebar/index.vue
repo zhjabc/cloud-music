@@ -49,6 +49,7 @@ const userInfo = useUserInfo();
 
 const handlePlayClick = (id: number) => {
   checkedId.value = id;
+  router.push("/playlistDetail/" + id);
 };
 const playerStore = usePlayerStore();
 </script>

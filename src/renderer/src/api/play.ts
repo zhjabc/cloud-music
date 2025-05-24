@@ -1,5 +1,6 @@
 import request from "@/utils/request";
 import { LyricResult } from "@/types";
+import { PlaylistDetail } from "@/types/api/playlistDetail";
 
 // 心动模式/智能播放列表
 export const getPlayList = (sid: string) => {
@@ -16,6 +17,17 @@ export const getPlayList = (sid: string) => {
 export const getLyric = (id: string): Promise<LyricResult> => {
   return request({
     url: "/lyric/new",
+    method: "get",
+    params: {
+      id,
+    },
+  });
+};
+
+// 获取歌单详情
+export const getPlaylistDetail = (id: string): Promise<PlaylistDetail> => {
+  return request({
+    url: "/playlist/detail",
     method: "get",
     params: {
       id,
