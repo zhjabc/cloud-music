@@ -95,6 +95,9 @@
   input:focus-visible {
     @apply outline-none ring-0;
   }
+  img{
+    @apply pointer-events-none
+  }
 }
 
 
