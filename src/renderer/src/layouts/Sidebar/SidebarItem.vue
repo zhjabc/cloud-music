@@ -16,7 +16,7 @@ const handleClick = (): void => {
 
 <template>
   <div
-    class="item-center flex rounded-[5px] p-[8px] hover:cursor-pointer"
+    class="item-center flex rounded-[5px] p-[8px] text-sm hover:cursor-pointer"
     :class="
       checked
         ? 'bg-[#fc3d4c] text-white hover:bg-[#fc3d4c]'
