@@ -59,7 +59,7 @@ const playerStore = usePlayerStore();
     <div class="drag h-[30px] w-full"></div>
     <div class="flex items-center justify-center space-x-[6px] pb-[20px]">
       <span class="iconfont icon-wangyiyun text-[28px] text-[#fc3c5a]"></span>
-      <span class="text-2xl">网易云音乐</span>
+      <span class="text-2xl">Cloud Music</span>
     </div>
     <div
       class="flex-1 overflow-y-auto p-[0_15px_0_20px] scrollbar"
