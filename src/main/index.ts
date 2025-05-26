@@ -22,11 +22,6 @@ function createWindow(): void {
     },
   });
 
-  // 全屏切换
-  ipcMain.handle("toggleFullscreen", () => {
-    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-  });
-
   // 保持窗口宽高比
   mainWindow.on("will-resize", (event, newBounds) => {
     event.preventDefault(); // 阻止默认行为
@@ -66,6 +61,12 @@ app.whenReady().then(() => {
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window);
+  });
+
+  // 全屏切换
+  ipcMain.handle("toggleFullscreen", () => {
+    if (!mainWindow) return;
+    mainWindow.setFullScreen(!mainWindow.isFullScreen());
   });
 
   createWindow();

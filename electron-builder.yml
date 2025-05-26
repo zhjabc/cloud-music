@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: cloud-music
+productName: Cloud Music
 directories:
   buildResources: build
 files:
