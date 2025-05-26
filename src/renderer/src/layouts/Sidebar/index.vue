@@ -38,7 +38,7 @@ const myBars = reactive([
   },
 ]);
 
-const checkedId = ref("/recommend");
+const checkedId = ref<string | number>("/recommend");
 
 const handleClick = (id: string): void => {
   checkedId.value = id;
