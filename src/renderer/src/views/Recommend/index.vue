@@ -40,10 +40,10 @@ const handlePlayClick = (id: number) => {
 </script>
 
 <template>
-  <div class="flex h-full flex-col">
-    <div>
-      <div class="mb-1 pl-2 text-lg font-bold">每日精选歌单</div>
-      <div v-if="recommendList.length" class="mb-1 w-full px-[70px]">
+  <div class="flex h-full flex-col space-y-2">
+    <div v-if="recommendList.length">
+      <div class="mb-1 pl-[30px] text-lg font-bold">每日精选歌单</div>
+      <div class="mb-1 w-full px-[70px]">
         <Carousel>
           <CarouselContent class="-ml-1">
             <CarouselItem
@@ -68,8 +68,8 @@ const handlePlayClick = (id: number) => {
         </Carousel>
       </div>
     </div>
-    <div class="flex min-h-0 flex-1 flex-col">
-      <div class="mb-1 pl-2 text-lg font-bold">每日精选歌曲</div>
+    <div class="flex min-h-0 flex-1 flex-col pl-[30px]">
+      <div class="mb-1 text-lg font-bold">每日精选歌曲</div>
       <div
         class="flex flex-1 flex-wrap items-center space-y-[5px] overflow-y-auto pl-2 scrollbar"
       >
