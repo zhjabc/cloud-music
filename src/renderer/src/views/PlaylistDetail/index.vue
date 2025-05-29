@@ -8,7 +8,6 @@ import { Avatar } from "@/components/ui/avatar";
 import dayjs from "dayjs";
 import { msToTime } from "@/utils";
 import { Like } from "@icon-park/vue-next";
-import { Song } from "@/types";
 import { checkMusic } from "@/api/public";
 import { useToast } from "@/components/ui/toast";
 import { usePlayerStore } from "@/store";

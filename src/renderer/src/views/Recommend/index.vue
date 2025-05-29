@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/carousel";
 import { usePlayerStore } from "@/store";
 import { getColorFromURL } from "@/utils";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const recommendList = ref<(Recommend & { bgColor?: string })[]>([]);
 const songList = ref<DailySong[]>([]);
@@ -30,6 +33,10 @@ const playerStore = usePlayerStore();
 const handlePlay = (id: number) => {
   playerStore.setSongInfo("" + id);
 };
+
+const handlePlayClick = (id: number) => {
+  router.push("/playlistDetail/" + id);
+};
 </script>
 
 <template>
@@ -43,6 +50,7 @@ const handlePlay = (id: number) => {
               v-for="item in recommendList"
               :key="item.id"
               class="basis-1/3 px-1 lg:basis-1/5"
+              @click="handlePlayClick(item.id)"
             >
               <div class="relative cursor-pointer">
                 <img :src="item.picUrl" alt="" class="rounded" />

@@ -10,6 +10,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { useColorMode } from "@vueuse/core";
 import { useUserInfo } from "@/store";
+import { Left } from "@icon-park/vue-next";
 
 const router = useRouter();
 
@@ -74,13 +75,21 @@ const openLoginPanel = () => {
 <template>
   <div class="flex flex-nowrap justify-between p-[28px_30px_10px]">
     <div class="relative">
-      <zhj_input
-        v-model="searchValue"
-        @change="handleChange"
-        @search="handleSearch"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
+      <div class="flex items-center space-x-2">
+        <left
+          theme="outline"
+          size="24"
+          class="cursor-pointer rounded-lg border-[1px] p-[7px_4px]"
+          @click="router.back"
+        />
+        <zhj_input
+          v-model="searchValue"
+          @change="handleChange"
+          @search="handleSearch"
+          @focus="handleFocus"
+          @blur="handleBlur"
+        />
+      </div>
       <SearchRecord
         v-if="showSearchRecord"
         ref="searchRecordRef"
