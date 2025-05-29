@@ -5,6 +5,8 @@ import { useRouter } from "vue-router";
 import { usePlayerStore, useUserInfo } from "@/store";
 import PlayListItem from "@/layouts/Sidebar/PlayListItem.vue";
 const router = useRouter();
+const userInfo = useUserInfo();
+
 const sidebars = reactive([
   {
     id: "/recommend",
@@ -29,7 +31,7 @@ const sidebars = reactive([
 ]);
 const myBars = reactive([
   {
-    id: "9",
+    id: "/playlistDetail/" + userInfo.createPlayList[0].id,
     text: "我喜欢的音乐",
   },
   {
@@ -44,8 +46,6 @@ const handleClick = (id: string): void => {
   checkedId.value = id;
   router.push(id);
 };
-
-const userInfo = useUserInfo();
 
 const handlePlayClick = (id: number) => {
   checkedId.value = id;
@@ -95,12 +95,14 @@ const playerStore = usePlayerStore();
       <div class="space-y-[5px]">
         <div class="py-[5px] pl-[8px] text-[13px] text-[#76767a]">
           创建的歌单<span class="ml-1">{{
-            userInfo.subAccount?.createdPlaylistCount ?? 0
+            userInfo.subAccount?.createdPlaylistCount
+              ? userInfo.subAccount?.createdPlaylistCount - 1
+              : 0
           }}</span>
         </div>
         <div class="space-y-[5px]">
           <PlayListItem
-            v-for="item in userInfo.createPlayList"
+            v-for="item in userInfo.createPlayList.slice(1)"
             :key="item.id"
             :checked="checkedId === item.id"
             :playlist="item"

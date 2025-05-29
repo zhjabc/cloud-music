@@ -42,7 +42,7 @@ const handlePlay = (id: number) => {
             <CarouselItem
               v-for="item in recommendList"
               :key="item.id"
-              class="px-1 md:basis-1/3 lg:basis-1/5"
+              class="basis-1/3 px-1 lg:basis-1/5"
             >
               <div class="relative cursor-pointer">
                 <img :src="item.picUrl" alt="" class="rounded" />

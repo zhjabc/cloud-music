@@ -47,7 +47,7 @@ const handleDbClick = async (item: Track) => {
 </script>
 
 <template>
-  <div class="flex h-full w-full flex-col px-[30px] pt-[10px]">
+  <div class="flex h-full w-full flex-col py-[10px] pl-[30px]">
     <div class="flex h-[168px] items-center">
       <img
         class="h-[168px] w-[168px] rounded-lg"
