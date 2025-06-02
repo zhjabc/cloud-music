@@ -12,30 +12,30 @@ const sidebars = reactive([
     id: "/recommend",
     text: "推荐",
   },
-  {
-    id: "/featured",
-    text: "精选",
-  },
-  {
-    id: "/podcast",
-    text: "播客",
-  },
-  {
-    id: "4",
-    text: "漫游",
-  },
-  {
-    id: "/follow",
-    text: "关注",
-  },
+  // {
+  //   id: "/featured",
+  //   text: "精选",
+  // },
+  // {
+  //   id: "/podcast",
+  //   text: "播客",
+  // },
+  // {
+  //   id: "4",
+  //   text: "漫游",
+  // },
+  // {
+  //   id: "/follow",
+  //   text: "关注",
+  // },
 ]);
 const myBars = reactive([
   {
-    id: "/playlistDetail/" + userInfo.createPlayList[0].id,
+    id: "/playlistDetail/" + userInfo.createPlayList[0].id + "?like=true",
     text: "我喜欢的音乐",
   },
   {
-    id: "10",
+    id: "/recentlyPlayed",
     text: "最近播放",
   },
 ]);

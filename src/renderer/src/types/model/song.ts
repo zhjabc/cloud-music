@@ -4,6 +4,25 @@ export interface SearchSong {
   songCount: number;
 }
 
+export interface RecentSong {
+  list: RecentSongItem[];
+}
+
+export interface RecentSongItem {
+  banned: boolean;
+  data: Song;
+  multiTerminalInfo: MultiTerminalInfo;
+  playTime: number;
+  resourceId: string;
+  resourceType: string;
+}
+
+export interface MultiTerminalInfo {
+  icon: string;
+  os: string;
+  osText: string;
+}
+
 export interface Song {
   name: string;
   id: number;

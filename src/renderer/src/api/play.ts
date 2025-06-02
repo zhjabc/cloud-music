@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { LyricResult } from "@/types";
+import { CommonResult, LyricResult, RecentSong } from "@/types";
 import { PlaylistDetail } from "@/types/api/playlistDetail";
 
 // 心动模式/智能播放列表
@@ -32,5 +32,13 @@ export const getPlaylistDetail = (id: string): Promise<PlaylistDetail> => {
     params: {
       id,
     },
+  });
+};
+
+// 最近播放-歌曲
+export const getRecentlySong = (): Promise<CommonResult<RecentSong>> => {
+  return request({
+    url: "/record/recent/song",
+    method: "get",
   });
 };

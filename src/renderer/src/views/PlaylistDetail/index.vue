@@ -17,6 +17,7 @@ const { toast } = useToast();
 const playerStore = usePlayerStore();
 
 const playlistDetail = ref<Playlist>();
+const isLike = ref(false);
 
 const init = async (id: string) => {
   const res = await getPlaylistDetail(id);
@@ -26,6 +27,7 @@ const init = async (id: string) => {
 watch(
   () => route.params.id,
   (id) => {
+    isLike.value = route.query.like === "true";
     init(id as string);
   },
   { immediate: true },
@@ -135,7 +137,8 @@ const handleDbClick = async (item: Track) => {
             {{ item.al.name }}
           </div>
           <div class="flex-[1] p-[3px_8px] text-foreground-secondary">
-            <like theme="outline" size="20" />
+            <like v-if="isLike" theme="filled" size="20" fill="#e23542" />
+            <like v-else theme="outline" size="20" />
           </div>
           <div class="flex-[1] p-[3px_8px] text-foreground-secondary">
             {{ msToTime(item.dt) }}
