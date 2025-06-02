@@ -1,8 +1,9 @@
 import { computed, onUnmounted, Ref, ref, watch } from "vue";
 import { Howl } from "howler";
 import { msToTime } from "@/utils";
+import { PlayWay } from "@/types";
 
-export const useAudioPlayer = (src: Ref<string>) => {
+export const useAudioPlayer = (src: Ref<string>, playWay: Ref<PlayWay>) => {
   const sound = ref<Howl>();
   const isPlaying = ref(false);
   const isMute = ref(false);
@@ -48,6 +49,9 @@ export const useAudioPlayer = (src: Ref<string>) => {
     isPlaying.value = false;
     stopTimer(); // 结束时停止定时器
     currentTime.value = 0; // 重置当前时间
+    if (playWay.value === "circulate") {
+      sound.value?.play(); // 如果是循环播放，重新开始播放
+    }
   };
 
   const onload = () => {

@@ -13,10 +13,12 @@ import {
   VolumeMute,
   MusicList,
 } from "@icon-park/vue-next";
+import { PlayWay } from "@/types";
 
 const playerStore = usePlayerStore();
+const playWay = ref<PlayWay>("circulate");
 const playUrl = computed(() => playerStore.currentSong?.url ?? "");
-const audioPLayer = useAudioPlayer(playUrl);
+const audioPLayer = useAudioPlayer(playUrl, playWay);
 const {
   isPlaying,
   sound,
