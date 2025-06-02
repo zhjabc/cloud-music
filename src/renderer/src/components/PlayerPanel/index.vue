@@ -77,7 +77,7 @@ const showLyricsPanel = ref(false);
         @click="showLyricsPanel = true"
       >
         <img
-          class="rounded-full"
+          class="h-full w-full rounded-full"
           :src="playerStore.currentSongDetail?.al.picUrl"
           alt="海报"
         />
